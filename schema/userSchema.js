@@ -1,5 +1,5 @@
 
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     name: String,
@@ -7,8 +7,5 @@ const userSchema = new mongoose.Schema({
     track: String,
 })
 
-const user = mongoose.model('user', userSchema);
+module.exports = mongoose.model('user', userSchema);
 
-export const userModel = ()=>{
-    return user;
-}

@@ -1,18 +1,12 @@
-import express from 'express';
-import {createReadStream} from 'node:fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import userRouter from './router/route.js';
-import dB from './db/db.js';
+const express = require('express');
+const fs =  require('node:fs');
+const path = require('path');
+// import { fileURLToPath } from 'url';
+const userRouter = require('./router/route.js');
+ require('./db/db.js');
 
-dB.on('error', console.error.bind(console, 'connection error:'));
-
-dB.once('open', ()=>{
-    console.log('connected to database');
-})
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 const PORT = 3000;
 const app = express();
@@ -40,7 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 
-// app.use('/app', userRouter)
+app.use('/app', userRouter)
 
 
 

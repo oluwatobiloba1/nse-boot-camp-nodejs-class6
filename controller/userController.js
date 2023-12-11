@@ -1,5 +1,5 @@
 
-import {userModel} from '../schema/userSchema';
+const userModel  = require('../schema/userSchema');
 
  const createUser = async (req,res)=>{
     const data = req.body;
@@ -65,7 +65,7 @@ const deleteUser = async (req,res)=>{
     const user = await userModel.deleteOne({id});
 }
 
-export default {
+module.exports = {
     createUser,
     updateUser,
     findUsers,
