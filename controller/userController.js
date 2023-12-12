@@ -2,7 +2,9 @@
 const userModel  = require('../schema/userSchema');
 
  const createUser = async (req,res)=>{
+    console.log(req.body);
     const data = req.body;
+    console.log(data)
     const user = await userModel.create({
            ...data
         });
@@ -18,14 +20,16 @@ const updateUser = async (req,res)=>{
     const id = req.params.id;
     const data = req.body;
 
-    const user = await userModel.findById(id);
+    console.log(data);
 
-    if(!user) return res.status(404).json({
+    const updatedUser = await userModel.findByIdAndUpdate(id, {...data},{returnOriginal:false});
+
+    if(!updatedUser) return res.status(404).json({
         message: 'user not found',
         statusCode: 404,
     })
 
-    const updatedUser = await userModel.updateOne({id},{...data},{returnOriginal:false});
+    // const updatedUser = await userModel.updateOne({id},);
 
     return res.status(200).json({
         message: 'updated user successfuly',
@@ -36,7 +40,7 @@ const updateUser = async (req,res)=>{
 }
 
 const findUsers = async (req,res)=>{
-    const users = await user.find();
+    const users = await userModel.find();
      return res.status(200).json({
         message: 'users found',
         statusCode: 200,
@@ -62,7 +66,13 @@ const findUserById = async (req,res)=>{
 const deleteUser = async (req,res)=>{
     const id = req.params.id;
 
-    const user = await userModel.deleteOne({id});
+    console.log(id);
+
+    const userDeleted = await userModel.deleteOne({_id:id});
+
+    console.log(userDeleted);
+
+    return res.status(204).end();
 }
 
 module.exports = {
